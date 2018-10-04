@@ -5,7 +5,10 @@ public class Check {
         boolean result = true;
         boolean arrFlag = data[0];
         for (boolean el : data) {
-            if (arrFlag != el) result = false;
+            if (arrFlag != el) {
+                result = false;
+                break;
+            }
         }
         return result;
     }
