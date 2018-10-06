@@ -17,7 +17,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class TicTacToe extends Application {
-    private static final String JOB4J = "Крестики-нолики www.job4j.ru";
+    private static final String JOB4J = "TicTacToe www.job4j.ru";
     private final int size = 3;
     private final Figure3T[][] cells = new Figure3T[size][size];
     private final Logic3T logic = new Logic3T(cells);
@@ -54,16 +54,16 @@ public class TicTacToe extends Application {
     private boolean checkState() {
         boolean gap = this.logic.hasGap();
         if (!gap) {
-            this.showAlert("Все поля запонены! Начните новую Игру!");
+            this.showAlert("All fields are filled! Start a new game!");
         }
         return gap;
     }
 
     private void checkWinner() {
         if (this.logic.isWinnerX()) {
-            this.showAlert("Победили Крестики! Начните новую Игру!");
+            this.showAlert("Crosses Won! Start a new game!");
         } else if (this.logic.isWinnerO()) {
-            this.showAlert("Победили Нолики! Начните новую Игру!");
+            this.showAlert("Noughts won! Start a new game!");
         }
     }
 
@@ -124,7 +124,7 @@ public class TicTacToe extends Application {
         control.setPrefHeight(40);
         control.setSpacing(10.0);
         control.setAlignment(Pos.BASELINE_CENTER);
-        Button start = new Button("Начать");
+        Button start = new Button("Start");
         start.setOnMouseClicked(
                 event -> border.setCenter(this.buildGrid())
         );
