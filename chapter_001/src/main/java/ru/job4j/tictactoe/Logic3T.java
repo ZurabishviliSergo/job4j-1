@@ -1,12 +1,30 @@
 package ru.job4j.tictactoe;
 
+/**
+ * Checking if win X, O or all area is filled.
+ * @author Vladimir Mytnik (vova@mytnik.net)
+ * @version 0.1
+ */
 public class Logic3T {
+    /**
+     * Playing area.
+     */
     private final Figure3T[][] table;
 
+    /**
+     * Constructor - set the new play area.
+     * @param table new play area.
+     */
     public Logic3T(Figure3T[][] table) {
         this.table = table;
     }
 
+    /**
+     * Check horizontal fields for winner.
+     * @param idx line index.
+     * @param figure  - 1 if X and any another number if O.
+     * @return true if all fields in line marked as true.
+     */
     private boolean checkHorizontal(int idx, int figure) {
         boolean result = true;
         for (int i = 0; i < table.length; i++) {
@@ -18,7 +36,12 @@ public class Logic3T {
         }
         return result;
     }
-
+    /**
+     * Check vertical fields for winner.
+     * @param idx column index.
+     * @param figure  - 1 if X and any another number if O.
+     * @return true if all fields in column marked as true.
+     */
     private boolean checkVertical(int idx, int figure) {
         boolean result = true;
         for (Figure3T[] cell : table) {
@@ -30,7 +53,11 @@ public class Logic3T {
         }
         return result;
     }
-
+    /**
+     * Check diagonal fields for winner.
+     * @param figure  - 1 if X and any another number if O.
+     * @return true if all fields in any diagonal is true.
+     */
     private boolean checkDiagonal(int figure) {
         int size = table.length;
         boolean result = true;
@@ -44,7 +71,10 @@ public class Logic3T {
         }
         return result;
     }
-
+    /**
+     * Check win for X.
+     * @return true if X is win.
+     */
     public boolean isWinnerX() {
         if (checkDiagonal(1)) { return true; }
         for (int i = 0; i < table.length; i++) {
@@ -53,16 +83,22 @@ public class Logic3T {
 
         return false;
     }
-
+    /**
+     * Check win for O.
+     * @return true if O is win.
+     */
     public boolean isWinnerO() {
         if (checkDiagonal(2)) return true;
         for (int i = 0; i < table.length; i++) {
             if (checkVertical(i, 2) || checkHorizontal(i, 2)) { return true; }
         }
-
         return false;
     }
 
+    /**
+     * check playing area for gap fields.
+     * @return false if all fields is full.
+     */
     public boolean hasGap() {
         boolean result = false;
         for (int i = 0; i < this.table[0].length; i++) {
