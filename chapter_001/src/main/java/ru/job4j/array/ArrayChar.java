@@ -1,7 +1,7 @@
 package ru.job4j.array;
 
 public class ArrayChar {
-    private char[] data;
+    private final char[] data;
 
     public ArrayChar(String line) {
         this.data = line.toCharArray();

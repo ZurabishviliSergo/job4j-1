@@ -37,7 +37,7 @@ public class PaintTest {
         );
     }
     @Test
-    public void whenPyramidHaveHight4() {
+    public void whenPyramidHaveHeight4() {
         Paint paint = new Paint();
         String rst = paint.pyramid(4);
         assertThat(rst,
@@ -52,7 +52,7 @@ public class PaintTest {
         );
     }
     @Test
-    public void whenPyramidHaveHightOne() {
+    public void whenPyramidHaveHeightOne() {
         Paint paint = new Paint();
         String rst = paint.pyramid(1);
         assertThat(rst,

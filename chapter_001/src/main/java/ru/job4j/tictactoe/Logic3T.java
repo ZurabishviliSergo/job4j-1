@@ -76,9 +76,13 @@ public class Logic3T {
      * @return true if X is win.
      */
     public boolean isWinnerX() {
-        if (checkDiagonal(1)) { return true; }
+        if (checkDiagonal(1)) {
+            return true;
+        }
         for (int i = 0; i < table.length; i++) {
-            if (checkVertical(i, 1) || checkHorizontal(i, 1)) { return true; }
+            if (checkVertical(i, 1) || checkHorizontal(i, 1)) {
+                return true;
+            }
         }
 
         return false;
@@ -88,9 +92,13 @@ public class Logic3T {
      * @return true if O is win.
      */
     public boolean isWinnerO() {
-        if (checkDiagonal(2)) return true;
+        if (checkDiagonal(2)) {
+            return true;
+        }
         for (int i = 0; i < table.length; i++) {
-            if (checkVertical(i, 2) || checkHorizontal(i, 2)) { return true; }
+            if (checkVertical(i, 2) || checkHorizontal(i, 2)) {
+                return true;
+            }
         }
         return false;
     }
@@ -108,7 +116,9 @@ public class Logic3T {
                     break;
                 }
             }
-            if (result) { break; }
+            if (result) {
+                break;
+            }
         }
         return result;
     }
