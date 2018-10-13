@@ -41,7 +41,8 @@ public class Tracker {
     */
     public void replace(String id, Item item) {
         for (int i = 0; i <= this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
+            if (this.items[i] != null && this.items[i].getId().equals(id)) {
+                item.setId(id);
                 this.items[i] = item;
                 break;
             }
@@ -82,15 +83,15 @@ public class Tracker {
     * @return - items array with required name.
     */
     public Item[] findByName(String key) {
-        Item[] arrWithkey = new Item[this.position];
+        Item[] arrWithKey = new Item[this.position];
         int resultPosition  = 0;
-        for (Item item : this.items) {
-            if (item != null && item.getName().equals(key)) {
-                arrWithkey[resultPosition++] = item;
+        for (int i = 0; i < this.position; i++) {
+            if (this.items[i] != null && this.items[i].getName().equals(key)) {
+                arrWithKey[resultPosition++] = this.items[i];
             }
         }
         Item[] result = new Item[resultPosition];
-        System.arraycopy(arrWithkey, 0, result, 0, resultPosition);
+        System.arraycopy(arrWithKey, 0, result, 0, resultPosition);
         return result;
     }
 
@@ -101,9 +102,9 @@ public class Tracker {
     */
     public Item findById(String id) {
         Item result = null;
-        for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
+        for (int i = 0; i < this.position; i++) {
+            if (this.items[i] != null && this.items[i].getId().equals(id)) {
+                result = this.items[i];
                 break;
             }
         }
@@ -115,6 +116,6 @@ public class Tracker {
      * @return unique key.
      */
     private String generateId() {
-        return String.valueOf(System.currentTimeMillis() + this.RN.nextInt());
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }

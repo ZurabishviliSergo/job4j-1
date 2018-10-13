@@ -10,17 +10,17 @@ public class Item {
     /**
      * Task id.
      */
-    private String id = null;
+    private String id;
 
     /**
     * Task name.
     */
-    private String name = null;
+    private String name;
 
     /**
     * Task details.
     */
-    private String body = null;
+    private String body;
 
     /**
     * Time when task created.
@@ -50,7 +50,7 @@ public class Item {
     /**
     * Constructor with args.
     */
-    Item(String name, String details, long time) {
+    public Item(String name, String details, long time) {
         this.name = name;
         this.body = details;
         this.createTime = time;
