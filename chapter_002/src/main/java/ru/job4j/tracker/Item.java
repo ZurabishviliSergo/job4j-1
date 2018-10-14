@@ -13,18 +13,18 @@ public class Item {
     private String id;
 
     /**
-    * Task name.
-    */
+     * Task name.
+     */
     private String name;
 
     /**
-    * Task details.
-    */
+     * Task details.
+     */
     private String body;
 
     /**
-    * Time when task created.
-    */
+     * Time when task created.
+     */
     private long createTime = 0;
 
 //    /**
@@ -48,31 +48,38 @@ public class Item {
 //    Item() { }
 
     /**
-    * Constructor with args.
-    */
+     * Constructor with name, details and time args.
+     */
     public Item(String name, String details, long time) {
         this.name = name;
         this.body = details;
         this.createTime = time;
     }
+    /**
+     * Constructor with name and details args.
+     */
+    public Item(String name, String details) {
+        this.name = name;
+        this.body = details;
+    }
 
     /**
-    * Getter for task id.
-    */
+     * Getter for task id.
+     */
     public String getId() {
         return this.id;
     }
 
     /**
-    * Setter for task id.
-    */
+     * Setter for task id.
+     */
     public void setId(String newId) {
         this.id = newId;
     }
 
     /**
-    * Getter for task name.
-    */
+     * Getter for task name.
+     */
     public String getName() {
         return this.name;
     }
@@ -83,13 +90,13 @@ public class Item {
 //    public void setName(String newName) {
 //        this.name = newName;
 //    }
-//
-//    /**
-//    * Getter for task details.
-//    */
-//    public String getBody() {
-//        return this.body;
-//    }
+
+    /**
+     * Getter for task details.
+     */
+    public String getBody() {
+        return this.body;
+    }
 //
 //    /**
 //    * Setter for task details.
@@ -97,7 +104,7 @@ public class Item {
 //    public void setBody(String newBody) {
 //        this.body = newBody;
 //    }
-//
+
 //    /**
 //    * Getter for task create time.
 //    */
