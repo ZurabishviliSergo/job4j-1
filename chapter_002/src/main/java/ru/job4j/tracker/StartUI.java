@@ -66,7 +66,7 @@ public class StartUI {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
-            String answer = this.input.ask("Type menu item : ");
+            String answer = this.input.ask("Select: ");
             if (ADD.equals(answer)) {
                 this.createItem();
             } else if (SHOW.equals(answer)) {
@@ -75,10 +75,10 @@ public class StartUI {
                 this.delItem();
             } else if (EDIT.equals(answer)) {
                 this.editItem();
-            } else if (SHOW.equals(answer)) {
-                this.showItems();
-            } else if (SHOW.equals(answer)) {
-                this.showItems();
+            } else if (FIND_ID.equals(answer)) {
+                this.findById();
+            } else if (FIND_NAME.equals(answer)) {
+                this.findByName();
             } else if (EXIT.equals(answer)) {
                 exit = true;
             }
@@ -94,7 +94,7 @@ public class StartUI {
         String desc = this.input.ask("Type request description: ");
         Item item = new Item(name, desc);
         this.tracker.add(item);
-        System.out.println("------------ New request getId : " + item.getId() + "-----------");
+        System.out.println("------------ New request getId : " + item.getId() + " -----------");
     }
 
     /**
@@ -103,17 +103,8 @@ public class StartUI {
     private void showItems() {
         System.out.println("------------ Show all requests --------------");
         Item[] allItems = tracker.getAll();
-        if (allItems.length == 0) {
-            System.out.println("There are no requests at this time.");
-        }
-        else {
-            for (Item item : allItems) {
-                System.out.println("\t- " + item.getName() + " ID:" + item.getId());
-                System.out.println("\t\t" + item.getBody());
-                System.out.println("---");
-            }
-        }
-        System.out.println("------------ Total requests : " + allItems.length + "-----------");
+        printItems(allItems);
+        System.out.println("------------ Total requests : " + allItems.length + " -----------");
     }
 
     /**
@@ -123,31 +114,75 @@ public class StartUI {
         System.out.println("------------ Delete request --------------");
         String id = this.input.ask("Type request id: ");
         String name = tracker.delete(id);
-        if (!name.equals(null)) {
+        if (name != null) {
             System.out.println("Request \"" + name + "\" has been deleted.");
         }
         else {
             System.out.println("There are no request with id " + id);
         }
-        System.out.println("------------ Show all requests --------------");
+        System.out.println("------------ Done --------------");
     }
 
     /**
-     * Delete request from storage.
+     * Edit request.
      */
     private void editItem() {
         System.out.println("------------ Edit request --------------");
         String id = this.input.ask("Type request id: ");
-        String name = tracker.delete(id);
-        if (!name.equals(null)) {
-            System.out.println("Request \"" + name + "\" has been deleted.");
-        }
-        else {
-            System.out.println("There are no request with id " + id);
-        }
-        System.out.println("------------ Show all requests --------------");
+        String name = this.input.ask("Type request new name: ");
+        String desc = this.input.ask("Type request new description: ");
+        Item item = new Item(name, desc);
+        tracker.replace(id, item);
+        System.out.println("------------ Done --------------");
     }
 
+    /**
+     * Find requests by name.
+     */
+    private void findByName() {
+        System.out.println("------------ Find requests by name --------------");
+        String name = this.input.ask("Type request name: ");
+        Item[] items = tracker.findByName(name);
+        printItems(items);
+        System.out.println("------------ Total results: " + items.length + " -----------");
+    }
+
+    /**
+     * Find request by ID.
+     */
+    private void findById() {
+        System.out.println("------------ Find request by ID --------------");
+        String id = this.input.ask("Type request ID: ");
+        Item item = tracker.findById(id);
+        if (item != null) {
+            Item[] itemArr = {tracker.findById(id)};
+            printItems(itemArr);
+        }
+        else {
+            System.out.println("Can't find item with ID " + id);
+        }
+        System.out.println("------------ Done -----------");
+    }
+
+    /**
+     * Console print items array.
+     */
+    private void printItems(Item[] items) {
+        if (items.length == 0) {
+            System.out.println("There are no requests at this time.");
+        }
+        else {
+            for (Item item : items) {
+                System.out.println("\t ID: " + item.getId() + " / Subject: " + item.getName());
+                System.out.println("\t Details: " + item.getBody());
+                System.out.println();
+            }
+        }
+    }
+
+    /**
+     * Print user menu.
+     */
     private void showMenu() {
         System.out.println("Menu.");
         System.out.println("0. Add new Item");
@@ -157,12 +192,11 @@ public class StartUI {
         System.out.println("4. Find item by Id");
         System.out.println("5. Find items by name");
         System.out.println("6. Exit Program");
-        System.out.println("Select:");
     }
 
     /**
      * Start application.
-     * @param args
+     * @param args - app command line arguments.
      */
     public static void main(String[] args) {
         new StartUI(new ConsoleInput(), new Tracker()).init();

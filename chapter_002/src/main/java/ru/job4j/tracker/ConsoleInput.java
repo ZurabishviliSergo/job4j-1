@@ -4,8 +4,8 @@ import java.util.*;
 
 public class ConsoleInput implements Input {
     public String ask (String question) {
+        System.out.println(question);
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 }
