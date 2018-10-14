@@ -116,8 +116,7 @@ public class StartUI {
         String name = tracker.delete(id);
         if (name != null) {
             System.out.println("Request \"" + name + "\" has been deleted.");
-        }
-        else {
+        } else {
             System.out.println("There are no request with id " + id);
         }
         System.out.println("------------ Done --------------");
@@ -157,8 +156,7 @@ public class StartUI {
         if (item != null) {
             Item[] itemArr = {tracker.findById(id)};
             printItems(itemArr);
-        }
-        else {
+        } else {
             System.out.println("Can't find item with ID " + id);
         }
         System.out.println("------------ Done -----------");
@@ -170,8 +168,7 @@ public class StartUI {
     private void printItems(Item[] items) {
         if (items.length == 0) {
             System.out.println("There are no requests at this time.");
-        }
-        else {
+        } else {
             for (Item item : items) {
                 System.out.println("\t ID: " + item.getId() + " / Subject: " + item.getName());
                 System.out.println("\t Details: " + item.getBody());
