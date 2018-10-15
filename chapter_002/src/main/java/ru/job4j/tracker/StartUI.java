@@ -103,7 +103,13 @@ public class StartUI {
     private void showItems() {
         System.out.println("------------ Show all requests --------------");
         Item[] allItems = tracker.getAll();
-        printItems(allItems);
+        if (allItems.length == 0) {
+            System.out.println("There are no requests at this time");
+        } else {
+            for (Item item : allItems) {
+                System.out.println(item.toString());
+            }
+        }
         System.out.println("------------ Total requests : " + allItems.length + " -----------");
     }
 
@@ -113,9 +119,8 @@ public class StartUI {
     private void delItem() {
         System.out.println("------------ Delete request --------------");
         String id = this.input.ask("Type request id: ");
-        String name = tracker.delete(id);
-        if (name != null) {
-            System.out.println("Request \"" + name + "\" has been deleted.");
+        if (tracker.delete(id)) {
+            System.out.println("Request with ID" + id + " has been deleted.");
         } else {
             System.out.println("There are no request with id " + id);
         }
@@ -131,8 +136,11 @@ public class StartUI {
         String name = this.input.ask("Type request new name: ");
         String desc = this.input.ask("Type request new description: ");
         Item item = new Item(name, desc);
-        tracker.replace(id, item);
-        System.out.println("------------ Done --------------");
+        if (tracker.replace(id, item)) {
+            System.out.println("------------ Request edited! --------------");
+        } else {
+            System.out.println("------------ Can't find request with ID" + id + "--------------");
+        }
     }
 
     /**
@@ -142,7 +150,13 @@ public class StartUI {
         System.out.println("------------ Find requests by name --------------");
         String name = this.input.ask("Type request name: ");
         Item[] items = tracker.findByName(name);
-        printItems(items);
+        if (items.length == 0) {
+            System.out.println("Can't find requests with name " + name);
+        } else {
+            for (Item item : items) {
+                System.out.println(item.toString());
+            }
+        }
         System.out.println("------------ Total results: " + items.length + " -----------");
     }
 
@@ -154,27 +168,11 @@ public class StartUI {
         String id = this.input.ask("Type request ID: ");
         Item item = tracker.findById(id);
         if (item != null) {
-            Item[] itemArr = {tracker.findById(id)};
-            printItems(itemArr);
+            System.out.println(item.toString());
         } else {
             System.out.println("Can't find item with ID " + id);
         }
         System.out.println("------------ Done -----------");
-    }
-
-    /**
-     * Console print items array.
-     */
-    private void printItems(Item[] items) {
-        if (items.length == 0) {
-            System.out.println("There are no requests at this time.");
-        } else {
-            for (Item item : items) {
-                System.out.println("\t ID: " + item.getId() + " / Subject: " + item.getName());
-                System.out.println("\t Details: " + item.getBody());
-                System.out.println();
-            }
-        }
     }
 
     /**

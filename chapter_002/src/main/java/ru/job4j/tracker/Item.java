@@ -90,13 +90,13 @@ public class Item {
 //    public void setName(String newName) {
 //        this.name = newName;
 //    }
-
-    /**
-     * Getter for task details.
-     */
-    public String getBody() {
-        return this.body;
-    }
+//
+//    /**
+//     * Getter for task details.
+//     */
+//    public String getBody() {
+//        return this.body;
+//    }
 //
 //    /**
 //    * Setter for task details.
@@ -139,4 +139,8 @@ public class Item {
     //public void setStatus(ItemStatus newStatus) {
     //    this.status = newStatus;
     //}
+    @Override
+    public String toString() {
+        return "\t ID: " + this.id + " / Subject: " + this.name + "\n\t Details: " + this.body + "\n";
+    }
 }

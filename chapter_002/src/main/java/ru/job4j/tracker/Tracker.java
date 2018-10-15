@@ -39,14 +39,17 @@ public class Tracker {
      * @param id - item id.
      * @param item - item.
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean result = false;
         for (int i = 0; i <= this.position; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(id)) {
                 item.setId(id);
                 this.items[i] = item;
+                result = true;
                 break;
             }
         }
+        return result;
     }
 
     /**
@@ -54,18 +57,18 @@ public class Tracker {
      * @param id - item id.
      * @return name of deleted item.
      */
-    public String delete(String id) {
-        String delItemName = null;
+    public boolean delete(String id) {
+        boolean result = false;
         for (int i = 0; i <= this.position; i++) {
             if (this.items[i].getId().equals(id)) {
-                delItemName = this.items[i].getName();
                 System.arraycopy(this.items, i + 1, this.items, i, this.items.length - i - 1);
                 this.position--;
+                result = true;
                 break;
             }
         }
 
-        return delItemName;
+        return result;
     }
 
     /**
