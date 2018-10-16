@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  */
 public class TriangleTest {
     @Test
-    public void WhenMakeTriangleThenDrawStringWithTriangleFigure() {
+    public void whenMakeTriangleThenDrawStringWithTriangleFigure() {
         Triangle triangle = new Triangle();
         assertThat(triangle.draw(), is(
                 new StringBuilder()

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  */
 public class SquareTest {
     @Test
-    public void WhenMakeSquareThenDrawStringWithSquareFigure() {
+    public void whenMakeSquareThenDrawStringWithSquareFigure() {
         Square square = new Square();
         assertThat(square.draw(), is(
                 new StringBuilder()
