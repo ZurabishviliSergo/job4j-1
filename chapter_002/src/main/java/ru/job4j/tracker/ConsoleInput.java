@@ -9,4 +9,21 @@ public class ConsoleInput implements Input {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
+    @Override
+    public int ask(String question, int[] range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist  = false;
+        for (int el : range) {
+            if (key == el) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range.");
+        }
+    }
 }

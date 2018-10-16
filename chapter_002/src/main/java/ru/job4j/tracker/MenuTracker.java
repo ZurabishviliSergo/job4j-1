@@ -5,21 +5,27 @@ public class MenuTracker {
     private Tracker tracker;
     private UserAction[] actions = new UserAction[7];
 
-    boolean exit = false;
-
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
     public void fillActions() {
-        this.actions[0] = this.new addAction();
-        this.actions[1] = new MenuTracker.geAllAction();
-        this.actions[2] = new editAction();
-        this.actions[3] = this.new deleteAction();
-        this.actions[4] = this.new findByIdAction();
-        this.actions[5] = this.new findByNameAction();
-        this.actions[6] = this.new exitAction();
+        this.actions[0] = this.new AddAction();
+        this.actions[1] = new MenuTracker.GeAllAction();
+        this.actions[2] = new EditAction();
+        this.actions[3] = this.new DeleteAction();
+        this.actions[4] = this.new FindByIdAction();
+        this.actions[5] = this.new FindByNameAction();
+        this.actions[6] = this.new ExitAction();
+    }
+
+    public int[] getMenuRange() {
+        int[] result = new int[this.actions.length];
+        for (int i = 0; i < this.actions.length; i++) {
+            result[i] = i;
+        }
+        return result;
     }
 
     public void select(int key) {
@@ -38,16 +44,10 @@ public class MenuTracker {
         }
     }
 
-    public void init() {
-        do {
-            this.show();
-            this.select(Integer.parseInt(input.ask("Select: ")));
-        } while (!this.exit);
-    }
     /**
      * Add new request to the storage.
      */
-    public class addAction implements UserAction {
+    public class AddAction implements UserAction {
         @Override
         public String key() {
             return "0";
@@ -70,7 +70,7 @@ public class MenuTracker {
     /**
      * Show all requests.
      */
-    private class geAllAction implements UserAction {
+    private class GeAllAction implements UserAction {
         @Override
         public String key() {
             return "1";
@@ -97,7 +97,7 @@ public class MenuTracker {
     /**
      * Delete request from storage.
      */
-    private class deleteAction implements UserAction {
+    private class DeleteAction implements UserAction {
         @Override
         public String key() {
             return "3";
@@ -122,7 +122,7 @@ public class MenuTracker {
     /**
      * Find request by ID.
      */
-    private class findByIdAction implements UserAction {
+    private class FindByIdAction implements UserAction {
         @Override
         public String key() {
             return "4";
@@ -149,7 +149,7 @@ public class MenuTracker {
     /**
      * Find requests by name.
      */
-    private class findByNameAction implements UserAction {
+    private class FindByNameAction implements UserAction {
         @Override
         public String key() {
             return "5";
@@ -175,15 +175,13 @@ public class MenuTracker {
 
     }
 
-    private class exitAction implements UserAction {
+    private class ExitAction implements UserAction {
         @Override
         public String key() {
             return "6";
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
-            exit = true;
-        }
+        public void execute(Input input, Tracker tracker) { }
         @Override
         public String title() {
             return String.format("%s. %s", this.key(), "Exit Program");
@@ -195,7 +193,7 @@ public class MenuTracker {
 /**
  * Edit request.
  */
-class editAction implements UserAction {
+class EditAction implements UserAction {
     @Override
     public String key() {
         return "2";

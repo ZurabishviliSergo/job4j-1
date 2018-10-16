@@ -31,16 +31,19 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
-        menu.init();
+        int key;
+        do {
+            menu.show();
+            key = input.ask("Select", menu.getMenuRange());
+            menu.select(key);
+        } while (key != 6);
     }
-
-
 
     /**
      * Start application.
      * @param args - app command line arguments.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
