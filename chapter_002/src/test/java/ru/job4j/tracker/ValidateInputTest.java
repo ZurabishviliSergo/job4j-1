@@ -11,11 +11,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * //TODO add comments.
+ * Validate input tests.
  *
- * @author Petr Arsentev (parsentev@yandex.ru)
- * @version $Id$
- * @since 0.1
+ * @author Vladimir Mytnik (vova@mytnik.net)
+ * @version 0.1
  */
 public class ValidateInputTest {
     private final ByteArrayOutputStream mem = new ByteArrayOutputStream();
@@ -41,6 +40,20 @@ public class ValidateInputTest {
                 this.mem.toString(),
                 is(
                         String.format("Type only numbers!%n")
+                )
+        );
+    }
+
+    @Test
+    public void whenNotMenuNumbers() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"99", "1"})
+        );
+        input.ask("Enter", new int[] {1});
+        assertThat(
+                this.mem.toString(),
+                is(
+                        String.format("Select numbers only from menu!%n")
                 )
         );
     }

@@ -12,7 +12,7 @@ public class MenuTracker {
 
     public void fillActions() {
         this.actions[0] = this.new AddAction();
-        this.actions[1] = new MenuTracker.GeAllAction();
+        this.actions[1] = new MenuTracker.GetAllAction();
         this.actions[2] = new EditAction();
         this.actions[3] = this.new DeleteAction();
         this.actions[4] = this.new FindByIdAction();
@@ -70,7 +70,7 @@ public class MenuTracker {
     /**
      * Show all requests.
      */
-    private class GeAllAction implements UserAction {
+    private class GetAllAction implements UserAction {
         @Override
         public String key() {
             return "1";
