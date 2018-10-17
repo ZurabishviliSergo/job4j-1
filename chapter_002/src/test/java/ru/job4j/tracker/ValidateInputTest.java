@@ -40,7 +40,7 @@ public class ValidateInputTest {
         assertThat(
                 this.mem.toString(),
                 is(
-                        "Type only numbers!\n"
+                        String.format("Type only numbers!%n")
                 )
         );
     }
