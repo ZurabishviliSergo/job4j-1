@@ -11,13 +11,13 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions[0] = this.new AddAction();
-        this.actions[1] = new MenuTracker.GetAllAction();
-        this.actions[2] = new EditAction();
-        this.actions[3] = this.new DeleteAction();
-        this.actions[4] = this.new FindByIdAction();
-        this.actions[5] = this.new FindByNameAction();
-        this.actions[6] = this.new ExitAction();
+        this.actions[0] = this.new AddAction("0", "Add new Item");
+        this.actions[1] = new MenuTracker.GetAllAction("1", "Show all items");
+        this.actions[2] = new EditAction("2", "Edit item");
+        this.actions[3] = this.new DeleteAction("3", "Delete item");
+        this.actions[4] = this.new FindByIdAction("4", "Find item by Id");
+        this.actions[5] = this.new FindByNameAction("5", "Find items by name");
+        this.actions[6] = this.new ExitAction("6", "Exit Program");
     }
 
     public int[] getMenuRange() {
@@ -47,11 +47,12 @@ public class MenuTracker {
     /**
      * Add new request to the storage.
      */
-    public class AddAction implements UserAction {
-        @Override
-        public String key() {
-            return "0";
+    public class AddAction extends BaseAction {
+
+        public AddAction(String key, String title) {
+            super(key, title);
         }
+
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Add new request --------------");
@@ -61,20 +62,16 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ New request getId : " + item.getId() + " -----------");
         }
-        @Override
-        public String title() {
-            return String.format("%s. %s", this.key(), "Add new Item");
-        }
     }
 
     /**
      * Show all requests.
      */
-    private class GetAllAction implements UserAction {
-        @Override
-        public String key() {
-            return "1";
+    private class GetAllAction extends BaseAction {
+        public GetAllAction(String key, String title) {
+            super(key, title);
         }
+
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Show all requests --------------");
@@ -88,20 +85,16 @@ public class MenuTracker {
             }
             System.out.println("------------ Total requests : " + allItems.length + " -----------");
         }
-        @Override
-        public String title() {
-            return String.format("%s. %s", this.key(), "Show all items");
-        }
     }
 
     /**
      * Delete request from storage.
      */
-    private class DeleteAction implements UserAction {
-        @Override
-        public String key() {
-            return "3";
+    private class DeleteAction extends BaseAction {
+        public DeleteAction(String key, String title) {
+            super(key, title);
         }
+
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Delete request --------------");
@@ -113,20 +106,16 @@ public class MenuTracker {
             }
             System.out.println("------------ Done --------------");
         }
-        @Override
-        public String title() {
-            return String.format("%s. %s", this.key(), "Delete item");
-        }
     }
 
     /**
      * Find request by ID.
      */
-    private class FindByIdAction implements UserAction {
-        @Override
-        public String key() {
-            return "4";
+    private class FindByIdAction extends BaseAction {
+        public FindByIdAction(String key, String title) {
+            super(key, title);
         }
+
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Find request by ID --------------");
@@ -139,21 +128,16 @@ public class MenuTracker {
             }
             System.out.println("------------ Done -----------");
         }
-        @Override
-        public String title() {
-            return String.format("%s. %s", this.key(), "Find item by Id");
-        }
-
     }
 
     /**
      * Find requests by name.
      */
-    private class FindByNameAction implements UserAction {
-        @Override
-        public String key() {
-            return "5";
+    private class FindByNameAction extends BaseAction {
+        public FindByNameAction(String key, String title) {
+            super(key, title);
         }
+
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Find requests by name --------------");
@@ -168,36 +152,26 @@ public class MenuTracker {
             }
             System.out.println("------------ Total results: " + items.length + " -----------");
         }
-        @Override
-        public String title() {
-            return String.format("%s. %s", this.key(), "Find items by name");
-        }
-
     }
 
-    private class ExitAction implements UserAction {
-        @Override
-        public String key() {
-            return "6";
-        }
-        @Override
-        public void execute(Input input, Tracker tracker) { }
-        @Override
-        public String title() {
-            return String.format("%s. %s", this.key(), "Exit Program");
+    private class ExitAction extends BaseAction {
+        public ExitAction(String key, String title) {
+            super(key, title);
         }
 
+        @Override
+        public void execute(Input input, Tracker tracker) { }
     }
 }
 
 /**
  * Edit request.
  */
-class EditAction implements UserAction {
-    @Override
-    public String key() {
-        return "2";
+class EditAction extends BaseAction {
+    public EditAction(String key, String title) {
+        super(key, title);
     }
+
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Edit request --------------");
@@ -210,9 +184,5 @@ class EditAction implements UserAction {
         } else {
             System.out.println("------------ Can't find request with ID" + id + "--------------");
         }
-    }
-    @Override
-    public String title() {
-        return String.format("%s. %s", this.key(), "Edit item");
     }
 }
