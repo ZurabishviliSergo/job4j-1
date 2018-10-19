@@ -15,6 +15,8 @@ public class StartUI {
      */
     private final Tracker tracker;
 
+    private boolean exit = false;
+
     /**
      * Fields initialization constructor.
      * @param input data input.
@@ -25,18 +27,22 @@ public class StartUI {
         this.tracker = tracker;
     }
 
+    public void stop() {
+        this.exit = true;
+    }
+
     /**
      * Main cycle.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
+        menu.fillActions(this);
         int key;
         do {
             menu.show();
             key = input.ask("Select", menu.getMenuRange());
             menu.select(key);
-        } while (key != 6);
+        } while (!exit);
     }
 
     /**

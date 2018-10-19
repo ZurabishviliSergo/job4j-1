@@ -1,23 +1,23 @@
 package ru.job4j.tracker;
 
 public class MenuTracker {
-    private Input input;
-    private Tracker tracker;
-    private UserAction[] actions = new UserAction[7];
+    private final Input input;
+    private final Tracker tracker;
+    private final UserAction[] actions = new UserAction[7];
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions[0] = this.new AddAction("0", "Add new Item");
         this.actions[1] = new MenuTracker.GetAllAction("1", "Show all items");
         this.actions[2] = new EditAction("2", "Edit item");
         this.actions[3] = this.new DeleteAction("3", "Delete item");
         this.actions[4] = this.new FindByIdAction("4", "Find item by Id");
         this.actions[5] = this.new FindByNameAction("5", "Find items by name");
-        this.actions[6] = this.new ExitAction("6", "Exit Program");
+        this.actions[6] = this.new ExitAction("6", "Exit Program", ui);
     }
 
     public int[] getMenuRange() {
@@ -155,12 +155,17 @@ public class MenuTracker {
     }
 
     private class ExitAction extends BaseAction {
-        public ExitAction(String key, String title) {
+        private final StartUI ui;
+
+        public ExitAction(String key, String title, StartUI ui) {
             super(key, title);
+            this.ui = ui;
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) { }
+        public void execute(Input input, Tracker tracker) {
+            this.ui.stop();
+        }
     }
 }
 
