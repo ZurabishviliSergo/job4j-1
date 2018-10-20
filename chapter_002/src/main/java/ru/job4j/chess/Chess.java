@@ -18,7 +18,7 @@ import ru.job4j.chess.firuges.black.*;
 import ru.job4j.chess.firuges.white.*;
 
 public class Chess extends Application {
-    private static final String JOB4J = "Шахматы на www.job4j.ru";
+    private static final String JOB4J = "Chess on www.job4j.ru";
     private final int size = 8;
     private final Logic logic = new Logic();
 
@@ -91,7 +91,7 @@ public class Chess extends Application {
         control.setPrefHeight(40);
         control.setSpacing(10.0);
         control.setAlignment(Pos.BASELINE_CENTER);
-        Button start = new Button("Начать");
+        Button start = new Button("Start");
         start.setOnMouseClicked(
                 event -> this.refresh(border)
         );
