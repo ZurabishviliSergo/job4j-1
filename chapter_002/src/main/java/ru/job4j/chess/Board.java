@@ -1,7 +1,6 @@
 package ru.job4j.chess;
 
 import ru.job4j.chess.exceptions.*;
-import ru.job4j.chess.firuges.Cell;
 
 /**
  * Game board. Contains all figures and check opportunity to move.
@@ -36,27 +35,38 @@ public class Board {
      * @throws FigureNotFoundException - not have any figure at source cell.
      */
     public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-        boolean isExistAtSource = false;
-        boolean isCanMove = false;
-        for (Figure figure : this.figures) {
-            Cell[] figureWay = figure.way(source, dest);
-            if (figureWay[0].equals(source)) {
-                isExistAtSource = true;
-
-                for (Cell cell : figureWay) {
-                    if (cell.equals(dest)) {
-                        isCanMove = true;
-                        break;
+        for (Figure figure : figures) {
+            boolean IsHaveOnSourse = false;
+            boolean IsCanMove = false;
+            boolean IsFreeWay = true;
+            try {
+                if (figure.position().equals(source)) {
+                    IsHaveOnSourse = true;
+                    for (Cell cell : figure.way(source, dest)) {
+                        if (cell.equals(dest)) {
+                            IsCanMove = true;
+                        }
+                        for (Figure figureInner : this.figures) {
+                            if (cell.equals(figureInner.position())) {
+                                IsFreeWay = false;
+                                break;
+                            }
+                        }
                     }
+                    break;
                 }
-                break;
+            } catch (ImpossibleMoveException ime) {
+                System.out.println(ime.toString());
             }
-        }
-        if (!isExistAtSource) {
-            throw new FigureNotFoundException("Not have any figure at source cell.");
-        }
-        if (!isCanMove) {
-            throw new ImpossibleMoveException("Wrong way!");
+            if (!IsHaveOnSourse) {
+                throw new FigureNotFoundException("Not have any figure at source cell.");
+            } else if (!IsCanMove) {
+                throw new ImpossibleMoveException("Wrong way!");
+            } else if (IsFreeWay) {
+                throw new OccupiedWayException("This way is not free.");
+            } else {
+                figure = figure.copy(dest);
+            }
         }
         return true;
     }
