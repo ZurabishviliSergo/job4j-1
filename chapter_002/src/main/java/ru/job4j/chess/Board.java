@@ -1,6 +1,7 @@
 package ru.job4j.chess;
 
 import ru.job4j.chess.exceptions.*;
+import ru.job4j.chess.firuges.Cell;
 
 /**
  * Game board. Contains all figures and check opportunity to move.
@@ -34,40 +35,40 @@ public class Board {
      * @throws OccupiedWayException - move way include another figure.
      * @throws FigureNotFoundException - not have any figure at source cell.
      */
-    public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-        for (Figure figure : figures) {
-            boolean IsHaveOnSourse = false;
-            boolean IsCanMove = false;
-            boolean IsFreeWay = true;
-            try {
-                if (figure.position().equals(source)) {
-                    IsHaveOnSourse = true;
-                    for (Cell cell : figure.way(source, dest)) {
-                        if (cell.equals(dest)) {
-                            IsCanMove = true;
-                        }
-                        for (Figure figureInner : this.figures) {
-                            if (cell.equals(figureInner.position())) {
-                                IsFreeWay = false;
-                                break;
-                            }
+    public boolean move(Cell source, Cell dest) {
+        boolean isHaveOnSource = false;
+        boolean isCanMove = false;
+        boolean isFreeWay = true;
+        int figurePosition = -1;
+        for (int i = 0; i < this.position; i++) {
+            Figure figure = this.figures[i];
+            if (figure.position() == source) {
+                isHaveOnSource = true;
+                figurePosition = i;
+                for (Cell cell : figure.way(source, dest)) {
+                    if (cell.equals(dest)) {
+                        isCanMove = true;
+                    }
+                    for (Figure figureInner : this.figures) {
+                        if (figureInner != null && cell == figureInner.position()) {
+                            isFreeWay = false;
+                            break;
                         }
                     }
-                    break;
                 }
-            } catch (ImpossibleMoveException ime) {
-                System.out.println(ime.toString());
-            }
-            if (!IsHaveOnSourse) {
-                throw new FigureNotFoundException("Not have any figure at source cell.");
-            } else if (!IsCanMove) {
-                throw new ImpossibleMoveException("Wrong way!");
-            } else if (IsFreeWay) {
-                throw new OccupiedWayException("This way is not free.");
-            } else {
-                figure = figure.copy(dest);
+                break;
             }
         }
+        if (!isHaveOnSource) {
+            throw new FigureNotFoundException("Not have any figure at source cell.");
+        }
+        if (!isCanMove) {
+            throw new ImpossibleMoveException("Wrong way!");
+        }
+        if (!isFreeWay) {
+            throw new OccupiedWayException("This way is not free.");
+        }
+        this.figures[figurePosition] = this.figures[figurePosition].copy(dest);
         return true;
     }
 }
