@@ -1,7 +1,9 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.exceptions.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.Utils;
 
 /**
  *
@@ -23,7 +25,23 @@ public class RookBlack implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        Cell[] steps;
+        if (Utils.isVertical(source, dest)) {
+            steps = new Cell[Math.abs(source.x - dest.x)];
+            int deltaX = source.x < dest.x ? 1 : -1;
+            for (int i = 1; i <= steps.length; i++) {
+                steps[i - 1] = Cell.find(source.x + (i * deltaX), source.y);
+            }
+        } else if (Utils.isHorizontal(source, dest)) {
+            steps = new Cell[Math.abs(source.y - dest.y)];
+            int deltaY = source.y < dest.y ? 1 : -1;
+            for (int i = 1; i <= steps.length; i++) {
+                steps[i - 1] = Cell.find(source.x, source.y + (i * deltaY));
+            }
+        } else {
+            throw new ImpossibleMoveException("Wrong way for Black Rook");
+        }
+        return steps;
     }
 
     @Override

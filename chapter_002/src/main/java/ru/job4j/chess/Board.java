@@ -2,6 +2,7 @@ package ru.job4j.chess;
 
 import ru.job4j.chess.exceptions.*;
 import ru.job4j.chess.firuges.Cell;
+import ru.job4j.chess.firuges.Figure;
 
 /**
  * Game board. Contains all figures and check opportunity to move.
@@ -36,25 +37,28 @@ public class Board {
      * @throws FigureNotFoundException - not have any figure at source cell.
      */
     public boolean move(Cell source, Cell dest) {
+        boolean result = true;
         boolean isHaveOnSource = false;
         boolean isCanMove = false;
-        boolean isFreeWay = true;
         int figurePosition = -1;
         for (int i = 0; i < this.position; i++) {
             Figure figure = this.figures[i];
             if (figure.position() == source) {
                 isHaveOnSource = true;
                 figurePosition = i;
-                for (Cell cell : figure.way(source, dest)) {
-                    if (cell.equals(dest)) {
-                        isCanMove = true;
-                    }
-                    for (Figure figureInner : this.figures) {
-                        if (figureInner != null && cell == figureInner.position()) {
-                            isFreeWay = false;
-                            break;
+                try {
+                    for (Cell cell : figure.way(source, dest)) {
+                        if (cell != null && cell.equals(dest)) {
+                            isCanMove = true;
+                        }
+                        for (Figure figureInner : this.figures) {
+                            if (figureInner != null && cell == figureInner.position()) {
+                                throw new OccupiedWayException("This way is not free.");
+                            }
                         }
                     }
+                } catch (ImpossibleMoveException ime) {
+                    result = false;
                 }
                 break;
             }
@@ -65,10 +69,7 @@ public class Board {
         if (!isCanMove) {
             throw new ImpossibleMoveException("Wrong way!");
         }
-        if (!isFreeWay) {
-            throw new OccupiedWayException("This way is not free.");
-        }
         this.figures[figurePosition] = this.figures[figurePosition].copy(dest);
-        return true;
+        return result;
     }
 }
