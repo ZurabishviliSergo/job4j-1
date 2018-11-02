@@ -18,7 +18,7 @@ public class KingBlackTest {
     private Board board = null;
 
     @Before
-    public void MakeNewFigureOnBoard() {
+    public void makeNewFigureOnBoard() {
         this.board = new Board();
         KingBlack king = new KingBlack(Cell.E1);
         board.add(king);

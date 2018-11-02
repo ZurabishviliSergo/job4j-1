@@ -18,7 +18,7 @@ public class QueenBlackTest {
     private Board board = null;
 
     @Before
-    public void MakeNewFigureOnBoard() {
+    public void makeNewFigureOnBoard() {
         this.board = new Board();
         QueenBlack queen = new QueenBlack(Cell.D1);
         board.add(queen);

@@ -18,7 +18,7 @@ public class BishopBlackTest {
     private Board board = null;
 
     @Before
-    public void MakeNewFigureOnBoard() {
+    public void makeNewFigureOnBoard() {
         this.board = new Board();
         BishopBlack bishop = new BishopBlack(Cell.C1);
         board.add(bishop);

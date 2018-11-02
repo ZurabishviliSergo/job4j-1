@@ -18,7 +18,7 @@ public class RookBlackTest {
     private Board board = null;
 
     @Before
-    public void MakeNewFigureOnBoard() {
+    public void makeNewFigureOnBoard() {
         this.board = new Board();
         RookBlack rook = new RookBlack(Cell.A1);
         board.add(rook);
