@@ -24,21 +24,29 @@ public class Logic {
 
     public boolean move(Cell source, Cell dest) {
         boolean rst = false;
+        boolean freeWay = true;
         int index = this.findBy(source);
         if (index != -1) {
             try {
                 Cell[] steps = this.figures[index].way(source, dest);
+                for (Cell step : steps) {
+                    for (Figure figure: figures) {
+                        if (step.equals(figure.position())) {
+                            freeWay = false;
+                            break;
+                        }
+                    }
+                    if (!freeWay) { break; }
+                }
                 if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
                     rst = true;
-                    this.figures[index] = this.figures[index].copy(dest);
+                    if (!freeWay) { this.figures[index] = this.figures[index].copy(dest); }
                 }
             } catch (ImpossibleMoveException ime) {
                 rst = false;
-            } catch (OccupiedWayException owe) {
-                rst = false;
             }
         }
-        return rst;
+        return rst && freeWay;
     }
 
     public void clean() {
