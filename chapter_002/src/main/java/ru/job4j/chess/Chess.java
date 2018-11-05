@@ -34,6 +34,7 @@ public class Chess extends Application {
             rect.setFill(Color.GRAY);
         }
         rect.setStroke(Color.BLACK);
+        System.out.println();
         return rect;
     }
 
