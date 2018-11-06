@@ -24,4 +24,8 @@ public class ConvertList2Array {
         }
         return array;
     }
+
+    public List<Integer> convert (List<int[]> list) {
+
+    }
 }
