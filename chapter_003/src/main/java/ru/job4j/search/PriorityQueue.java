@@ -26,8 +26,13 @@ public class PriorityQueue {
         } else {
             ListIterator<Task> itr = tasks.listIterator();
             while (itr.hasNext()) {
-                if (itr.next().getPriority() > task.getPriority()) {
+                Task item = itr.next();
+                if (item.getPriority() >= task.getPriority()) {
                     tasks.add(itr.previousIndex(), task);
+                    break;
+                }
+                if (!itr.hasNext()) {
+                    tasks.add(task);
                     break;
                 }
             }
