@@ -1,9 +1,12 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuTracker {
     private final Input input;
     private final Tracker tracker;
-    private final UserAction[] actions = new UserAction[7];
+    private List<UserAction> actions = new ArrayList<>();
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -11,25 +14,25 @@ public class MenuTracker {
     }
 
     public void fillActions(StartUI ui) {
-        this.actions[0] = this.new AddAction("0", "Add new Item");
-        this.actions[1] = new MenuTracker.GetAllAction("1", "Show all items");
-        this.actions[2] = new EditAction("2", "Edit item");
-        this.actions[3] = this.new DeleteAction("3", "Delete item");
-        this.actions[4] = this.new FindByIdAction("4", "Find item by Id");
-        this.actions[5] = this.new FindByNameAction("5", "Find items by name");
-        this.actions[6] = this.new ExitAction("6", "Exit Program", ui);
+        this.actions.add(this.new AddAction("0", "Add new Item"));
+        this.actions.add(new MenuTracker.GetAllAction("1", "Show all items"));
+        this.actions.add(new EditAction("2", "Edit item"));
+        this.actions.add(this.new DeleteAction("3", "Delete item"));
+        this.actions.add(this.new FindByIdAction("4", "Find item by Id"));
+        this.actions.add(this.new FindByNameAction("5", "Find items by name"));
+        this.actions.add(this.new ExitAction("6", "Exit Program", ui));
     }
 
     public int[] getMenuRange() {
-        int[] result = new int[this.actions.length];
-        for (int i = 0; i < this.actions.length; i++) {
+        int[] result = new int[this.actions.size()];
+        for (int i = 0; i < this.actions.size(); i++) {
             result[i] = i;
         }
         return result;
     }
 
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**
