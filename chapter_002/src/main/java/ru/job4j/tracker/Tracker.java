@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Items storage and methods to work with items.
@@ -33,9 +35,10 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        if (this.delete(id)) {
-            item.setId(id);
-            this.items.add(item);
+        item.setId(id);
+        int replaceIdx = this.items.indexOf(item);
+        if (replaceIdx != -1) {
+            this.items.set(replaceIdx, item);
             result = true;
         }
         return result;
@@ -46,35 +49,26 @@ public class Tracker {
      * @return name of deleted item.
      */
     public boolean delete(String id) {
-        boolean result = false;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                this.items.remove(item);
-                result = true;
-                break;
-            }
-        }
-        return result;
+        return this.items.removeIf(item -> item.getId().equals(id));
     }
     /**
      * Get all tasks array.
      * @return - this.items array copy, without nulls.
      */
-    public Item[] getAll() {
-        return this.items.toArray(new Item[0]);
+    public List<Item> getAll() {
+        return this.items;
     }
-
     /**
      * Find by item name.
      * @param key - item name.
      * @return - items array with required name.
      */
-    public Item[] findByName(String key) {
+    public List<Item> findByName(String key) {
         List<Item> resultList = new ArrayList<>();
         for (Item item : this.items) {
             if (item.getName().equals(key)) { resultList.add(item); }
         }
-        return resultList.toArray(new Item[0]);
+        return resultList;
     }
 
     /**

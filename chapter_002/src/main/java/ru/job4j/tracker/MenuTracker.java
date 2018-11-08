@@ -78,15 +78,15 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Show all requests --------------");
-            Item[] allItems = tracker.getAll();
-            if (allItems.length == 0) {
+            List<Item> allItems = tracker.getAll();
+            if (allItems.size() == 0) {
                 System.out.println("There are no requests at this time");
             } else {
                 for (Item item : allItems) {
                     System.out.println(item.toString());
                 }
             }
-            System.out.println("------------ Total requests : " + allItems.length + " -----------");
+            System.out.println("------------ Total requests : " + allItems.size() + " -----------");
         }
     }
 
@@ -145,15 +145,15 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Find requests by name --------------");
             String name = input.ask("Type request name: ");
-            Item[] items = tracker.findByName(name);
-            if (items.length == 0) {
+            List<Item> items = tracker.findByName(name);
+            if (items.size() == 0) {
                 System.out.println("Can't find requests with name " + name);
             } else {
                 for (Item item : items) {
                     System.out.println(item.toString());
                 }
             }
-            System.out.println("------------ Total results: " + items.length + " -----------");
+            System.out.println("------------ Total results: " + items.size() + " -----------");
         }
     }
 
