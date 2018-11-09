@@ -24,12 +24,11 @@ public class KnightBlack implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        if (!(Math.abs(source.x - dest.x) == 1 && Math.abs(source.y - dest.y) == 2 ||
-                Math.abs(source.x - dest.x) == 2 && Math.abs(source.y - dest.y) == 1)) {
+        if (!(Math.abs(source.x - dest.x) == 1 && Math.abs(source.y - dest.y) == 2
+                || Math.abs(source.x - dest.x) == 2 && Math.abs(source.y - dest.y) == 1)) {
             throw new ImpossibleMoveException("Wrong way for Black Knight");
         }
-        Cell[] steps = {dest};
-        return steps;
+        return new Cell[]{dest};
     }
 
     @Override

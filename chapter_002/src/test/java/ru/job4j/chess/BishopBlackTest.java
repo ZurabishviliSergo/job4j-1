@@ -49,13 +49,4 @@ public class BishopBlackTest {
         boolean moveResult = this.board.move(Cell.G5, Cell.E3);
         assertThat(moveResult, is(true));
     }
-
-    @Test
-    public void whenOccupiedWayThenThrows() {
-        BishopBlack bishop2 = new BishopBlack(Cell.D2);
-        board.add(bishop2);
-        this.board.move(Cell.C1, Cell.G5);
-        boolean moveResult = this.board.move(Cell.G5, Cell.E3);
-        assertThat(moveResult, is(true));
-    }
 }
