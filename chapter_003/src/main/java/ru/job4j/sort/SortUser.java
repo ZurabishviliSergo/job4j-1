@@ -1,8 +1,6 @@
 package ru.job4j.sort;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Class description.
@@ -13,8 +11,6 @@ import java.util.TreeSet;
  */
 public class SortUser {
     public Set<User> sort (List<User> users) {
-        TreeSet<User> result;
-        result = new TreeSet<>(users);
-        return result;
+        return new TreeSet<>(users);
     }
 }
