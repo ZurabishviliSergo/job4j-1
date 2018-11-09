@@ -15,3 +15,6 @@ notifications:
       -vova@mytnik.net
     on_success: never # default: change
     on_failure: always # default: always
+
+enc:
+  - CODECOV_TOKEN="70634145-43d6-492e-b573-fb980359e5cd"
