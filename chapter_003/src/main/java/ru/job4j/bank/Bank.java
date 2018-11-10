@@ -13,7 +13,7 @@ import java.util.Map;
  * @since 11/10/18
  */
 public class Bank {
-    private Map <User, List <Account>> users = new HashMap<>();
+    private Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
         this.users.putIfAbsent(user, new ArrayList<>());
