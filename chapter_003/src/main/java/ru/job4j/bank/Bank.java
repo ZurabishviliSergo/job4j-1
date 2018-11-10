@@ -13,7 +13,7 @@ import java.util.Map;
  * @since 11/10/18
  */
 public class Bank {
-    private Map <User, List<Account>> users = new HashMap<>();
+    private Map <User, List <Account>> users = new HashMap<>();
 
     public void addUser(User user) {
         this.users.putIfAbsent(user, new ArrayList<>());
@@ -31,11 +31,11 @@ public class Bank {
         this.getUserAccounts(passport).remove(account);
     }
 
-    public List<Account> getUserAccounts (String passport) {
+    public List<Account> getUserAccounts(String passport) {
         return this.users.get(new User("", passport));
     }
 
-    public boolean transferMoney (String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
         List<Account> srcAccounts = this.getUserAccounts(srcPassport);
         List<Account> destAccounts = this.getUserAccounts(destPassport);
         Account srcAccount = srcAccounts.get(srcAccounts.indexOf(new Account(0, srcRequisite)));
