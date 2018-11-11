@@ -34,6 +34,10 @@ public class Account {
         return value;
     }
 
+    public String getRequisites() {
+        return requisites;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
