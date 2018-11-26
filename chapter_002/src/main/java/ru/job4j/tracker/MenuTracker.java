@@ -2,15 +2,18 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MenuTracker {
     private final Input input;
     private final Tracker tracker;
     private List<UserAction> actions = new ArrayList<>();
+    private final Consumer output;
 
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     public void fillActions(StartUI ui) {
@@ -39,10 +42,10 @@ public class MenuTracker {
      * Print user menu.
      */
     public void show() {
-        System.out.println("Menu.");
+        output.accept("Menu.");
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.title());
+                output.accept(action.title());
             }
         }
     }

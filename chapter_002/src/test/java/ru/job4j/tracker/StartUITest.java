@@ -47,7 +47,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(tracker.getAll().get(0).getName(), is("test name"));
     }
 
@@ -55,7 +55,7 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
     }
 
@@ -63,7 +63,7 @@ public class StartUITest {
     public void whenUserAddAndDeleteOneItemThenTrackerNotHaveAnyItems() {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(tracker.getAll().size(), is(0));
     }
 
@@ -72,7 +72,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("test name", "desc"));
         Item item2 = tracker.add(new Item("test2 name", "desc2"));
         Input input = new StubInput(new String[]{"1", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(new String(this.out.toByteArray()), is(
                 new StringBuilder()
                         .append(this.userMenu)
@@ -94,7 +94,7 @@ public class StartUITest {
     public void whenFindItemByIdThenShowThenToOut() {
         Item item2 = tracker.add(new Item("test2 name", "desc2"));
         Input input = new StubInput(new String[]{"4", item2.getId(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(new String(this.out.toByteArray()), is(
                 new StringBuilder()
                         .append(this.userMenu)
@@ -114,7 +114,7 @@ public class StartUITest {
     public void whenNotFindItemByIdThenShowMessageToOut() {
         String wrongId = "000";
         Input input = new StubInput(new String[]{"4", wrongId, "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(new String(this.out.toByteArray()), is(
                 new StringBuilder()
                         .append(this.userMenu)
@@ -135,7 +135,7 @@ public class StartUITest {
     public void whenFindItemByNameThenShowThenToOut() {
         Item item2 = tracker.add(new Item("test2 name", "desc2"));
         Input input = new StubInput(new String[]{"5", item2.getName(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(new String(this.out.toByteArray()), is(
                 new StringBuilder()
                         .append(this.userMenu)
@@ -155,7 +155,7 @@ public class StartUITest {
     public void whenNotFindItemByNameThenShowMessageToOut() {
         String wrongName = "TST";
         Input input = new StubInput(new String[]{"5", wrongName, "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(new String(this.out.toByteArray()), is(
                 new StringBuilder()
                         .append(this.userMenu)
