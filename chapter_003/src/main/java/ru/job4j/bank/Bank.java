@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * Class description.
@@ -42,12 +41,23 @@ public class Bank {
         return srcAccount != null && destAccount != null && srcAccount.transfer(destAccount, amount);
     }
     private Account findAccount(String passport, String req) {
-        Stream<Account> accountStream = this.getUserAccounts(passport).stream();
-        return accountStream.filter(acc -> acc.getRequisites().equals(req)).findFirst().orElse(null);
+        Account result = null;
+        for (Account account : this.getUserAccounts(passport)) {
+            if (account.getRequisites().equals(req)) {
+                result = account;
+            }
+        }
+        return result;
     }
 
     private User findUserByPassport(String passport) {
-        Stream<User> userStream = this.users.keySet().stream();
-        return userStream.filter(user -> user.getPassport().equals(passport)).findFirst().orElse(null);
+        User result = null;
+        for (User user : this.users.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                result = user;
+                break;
+            }
+        }
+        return result;
     }
 }
