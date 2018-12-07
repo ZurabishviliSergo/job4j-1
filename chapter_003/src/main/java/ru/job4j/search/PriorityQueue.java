@@ -1,7 +1,9 @@
 package ru.job4j.search;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 /**
  * Tasks list.
@@ -21,22 +23,25 @@ public class PriorityQueue {
      * @param task new task to add.
      */
     public void put(Task task) {
-        if (tasks.size() == 0) {
-            tasks.add(task);
-        } else {
-            ListIterator<Task> itr = tasks.listIterator();
-            while (itr.hasNext()) {
-                Task item = itr.next();
-                if (item.getPriority() >= task.getPriority()) {
-                    tasks.add(itr.previousIndex(), task);
-                    break;
-                }
-                if (!itr.hasNext()) {
-                    tasks.add(task);
-                    break;
-                }
-            }
-        }
+//        if (tasks.size() == 0) {
+//            tasks.add(task);
+//        } else {
+//            ListIterator<Task> itr = tasks.listIterator();
+//            while (itr.hasNext()) {
+//                Task item = itr.next();
+//                if (item.getPriority() >= task.getPriority()) {
+//                    tasks.add(itr.previousIndex(), task);
+//                    break;
+//                }
+//                if (!itr.hasNext()) {
+//                    tasks.add(task);
+//                    break;
+//                }
+//            }
+//        }
+        this.tasks.add(task);
+        this.tasks = this.tasks.stream().sorted(Comparator.comparing(Task::getPriority)).
+                collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

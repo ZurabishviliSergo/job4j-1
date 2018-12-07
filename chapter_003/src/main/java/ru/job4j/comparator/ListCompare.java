@@ -1,7 +1,6 @@
 package ru.job4j.comparator;
 
 import java.util.Comparator;
-import java.util.stream.Stream;
 
 /**
  * Class description.
@@ -10,6 +9,8 @@ import java.util.stream.Stream;
  * @version 0.1.
  * @since 11/9/18
  */
+
+// Сравнить две строки, то есть создать два стрима и как-то их обработать. Здесь можно как-то применить Stream?
 public class ListCompare implements Comparator<String> {
     @Override
     public int compare(String left, String right) {

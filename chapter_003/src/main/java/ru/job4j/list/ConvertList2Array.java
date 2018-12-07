@@ -1,7 +1,11 @@
 package ru.job4j.list;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Class description.
@@ -10,12 +14,10 @@ import java.util.List;
  * @version 0.1.
  * @since 11/6/18
  */
+// Как можно переписать на стримы этот метод? Несколько дней провозился, но так и не смог.
 public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
-        int cells = list.size() / rows;
-        if (cells % rows != 0) {
-            cells++;
-        }
+        final int cells = list.size() % rows == 0 ? list.size() / rows: list.size() / rows + 1;
         int position = 0;
         int[][] array = new int[rows][cells];
         for (int i = 0; i < rows; i++) {
@@ -26,14 +28,27 @@ public class ConvertList2Array {
             }
         }
         return array;
+//        ArrayList<int[]> s1 = list.stream().reduce(new ArrayList<>(), (acc, el) -> {
+//            acc.add(el);
+//        }, (x, y) -> {
+//            x.add(y);
+//            return y;
+//        });
+//        System.out.println(s1.size());
+//        for (int[] el: s1) {
+//            for (int el2: el) {
+//                System.out.println(el2);
+//            }
+//            System.out.println();
+//        }
+//        Stream<Integer> s1 = list.stream();
+//        Stream<int[]> s2 = s1.reduce(IntStream.empty(), el -> {
+//
+//        });
+//        return new int[][]{};
     }
     public List<Integer> convert(List<int[]> list) {
-        List<Integer> result = new ArrayList<>();
-        for (int[] arr : list) {
-            for (int item : arr) {
-                result.add(item);
-            }
-        }
-        return result;
+        IntStream stream = list.stream().flatMapToInt(Arrays::stream);
+        return stream.boxed().collect(Collectors.toList());
     }
 }
