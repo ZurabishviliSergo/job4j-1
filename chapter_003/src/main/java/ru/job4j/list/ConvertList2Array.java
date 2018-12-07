@@ -1,11 +1,9 @@
 package ru.job4j.list;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * Class description.
@@ -17,7 +15,7 @@ import java.util.stream.Stream;
 // Как можно переписать на стримы этот метод? Несколько дней провозился, но так и не смог.
 public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
-        final int cells = list.size() % rows == 0 ? list.size() / rows: list.size() / rows + 1;
+        final int cells = list.size() % rows == 0 ? list.size() / rows : list.size() / rows + 1;
         int position = 0;
         int[][] array = new int[rows][cells];
         for (int i = 0; i < rows; i++) {
