@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Items storage and methods to work with items.
@@ -64,13 +65,14 @@ public class Tracker {
      * @return - items array with required name.
      */
     public List<Item> findByName(String key) {
-        List<Item> resultList = new ArrayList<>();
-        for (Item item : this.items) {
-            if (item.getName().equals(key)) {
-                resultList.add(item);
-            }
-        }
-        return resultList;
+//        List<Item> resultList = new ArrayList<>();
+//        for (Item item : this.items) {
+//            if (item.getName().equals(key)) {
+//                resultList.add(item);
+//            }
+//        }
+//        return resultList;
+        return this.items.stream().filter(item -> item.getName().equals(key)).collect(Collectors.toList());
     }
 
     /**
@@ -79,14 +81,15 @@ public class Tracker {
      * @return - item required id.
      */
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                result = item;
-                break;
-            }
-        }
-        return result;
+//        Item result = null;
+//        for (Item item : this.items) {
+//            if (item.getId().equals(id)) {
+//                result = item;
+//                break;
+//            }
+//        }
+//        return result;
+        return this.items.stream().filter(item -> item.getId().equals(id)).findFirst().orElse(null);
     }
 
     /**
