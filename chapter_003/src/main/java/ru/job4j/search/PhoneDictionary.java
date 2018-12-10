@@ -38,7 +38,8 @@ public class PhoneDictionary {
 //            }
 //        }
 //        return result;
-        return this.persons.stream().filter(person -> person.getName().contains(key)
+        var stream = this.persons.stream();
+        return stream.filter(person -> person.getName().contains(key)
                 || person.getSurname().contains(key) || person.getAddress().contains(key)
                 || person.getPhone().contains(key)).collect(Collectors.toList());
     }
